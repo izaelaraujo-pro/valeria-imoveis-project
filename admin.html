@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Painel administrativo | Valeria Imóveis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script defer src="admin.js"></script>
+</head>
+<body class="admin-body">
+  <header class="admin-header"><a class="brand" href="index.html"><span class="brand-mark">V</span><span>VALERIA<small>IMÓVEIS</small></span></a><a class="text-link" href="index.html">← Voltar ao portal</a></header>
+  <main class="admin-main">
+    <section class="login-card" id="loginPanel"><span class="eyebrow dark">ACESSO RESTRITO</span><h1>Painel administrativo</h1><p>Entre com a conta autorizada para gerenciar os imóveis do portal.</p>
+      <form id="loginForm"><label>E-mail<input type="email" id="loginEmail" required autocomplete="username" placeholder="seu@email.com"></label><label>Senha<input type="password" id="loginPassword" required autocomplete="current-password" placeholder="Sua senha"></label><button class="button button-dark full-width" type="submit">Entrar no painel</button><p class="form-message" id="loginMessage"></p></form>
+    </section>
+    <section id="dashboard" class="dashboard hidden">
+      <div class="dashboard-top"><div><span class="eyebrow dark">GESTÃO DO PORTFÓLIO</span><h1>Seus imóveis.</h1><p>Cadastre, edite e controle o que aparece no portal público.</p></div><button class="button button-dark" id="newPropertyBtn">＋ Novo imóvel</button></div>
+      <div class="admin-stats"><div><small>TOTAL CADASTRADO</small><strong id="totalCount">0</strong></div><div><small>PUBLICADOS</small><strong id="publishedCount">0</strong></div><div><small>RASCUNHOS</small><strong id="draftCount">0</strong></div></div>
+      <div class="admin-list-head"><h2>Imóveis cadastrados</h2><input type="search" id="adminSearch" placeholder="Buscar imóvel..."></div>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Imóvel</th><th>Finalidade</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead><tbody id="adminRows"><tr><td colspan="5">Carregando...</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <div class="modal hidden" id="editorModal" role="dialog" aria-modal="true" aria-labelledby="editorTitle"><div class="modal-backdrop" data-close-editor></div><section class="editor-card"><button class="modal-close" data-close-editor>×</button><span class="eyebrow dark">CADASTRO DE IMÓVEL</span><h2 id="editorTitle">Novo imóvel</h2>
+    <form id="propertyForm" class="property-form">
+      <input type="hidden" id="propertyId">
+      <div class="form-grid"><label class="span-2">Título do anúncio<input id="title" required maxlength="120" placeholder="Ex.: Apartamento iluminado em Copacabana"></label>
+      <label>Tipo<select id="propertyType" required><option value="Casa">Casa</option><option value="Apartamento">Apartamento</option><option value="Terreno">Terreno</option><option value="Comercial">Comercial</option><option value="Outro">Outro</option></select></label>
+      <label>Finalidade<select id="purpose" required><option value="Venda">Venda</option><option value="Aluguel">Aluguel</option></select></label>
+      <label>Preço (R$)<input id="price" type="number" min="0" step="0.01" required placeholder="450000"></label>
+      <label>Status<select id="status"><option value="published">Publicado</option><option value="draft">Rascunho</option><option value="sold">Vendido / Alugado</option></select></label>
+      <label>Quartos<input id="bedrooms" type="number" min="0" value="0"></label><label>Banheiros<input id="bathrooms" type="number" min="0" value="0"></label><label>Vagas<input id="parking" type="number" min="0" value="0"></label><label>Área (m²)<input id="area" type="number" min="0" step="0.01" placeholder="85"></label>
+      <label>Condomínio (R$)<input id="condoFee" type="number" min="0" step="0.01" placeholder="0"></label><label>IPTU (R$)<input id="propertyTax" type="number" min="0" step="0.01" placeholder="0"></label>
+      <label>Rua / endereço<input id="address" placeholder="Rua, número"></label><label>Bairro<input id="neighborhood" placeholder="Ex.: Copacabana"></label><label>Cidade<input id="city" placeholder="Rio de Janeiro"></label><label>UF<input id="state" maxlength="2" placeholder="RJ"></label>
+      <label class="span-2">Descrição<textarea id="description" rows="5" placeholder="Descreva os diferenciais do imóvel..."></textarea></label>
+      <label class="span-2">Fotos do imóvel<input id="images" type="file" accept="image/jpeg,image/png,image/webp" multiple><small class="field-help">JPG, PNG ou WEBP. Até 5 MB por foto. As fotos existentes serão mantidas ao editar.</small><div id="existingImages" class="existing-images"></div></label>
+      </div>
+      <div class="editor-actions"><button type="button" class="button button-outline" data-close-editor>Cancelar</button><button type="submit" class="button button-dark" id="savePropertyBtn">Salvar imóvel</button></div><p class="form-message" id="editorMessage"></p>
+    </form>
+  </section></div>
+  <div class="toast" id="toast" role="status"></div>
+</body></html>
